@@ -28,10 +28,7 @@ chap_urls = list()
 chapters = soup.find_all("tr", itemprop = "chapter")
 for chapter in chapters:
     chaplink = chapter.find("a", itemprop = "url")
-    try:
-        chapurl = chaplink["href"]
-    except:
-        chapurl = chaplink["rel"]
+    chapurl = chaplink["href"]
     chap_urls.append(chapurl)
 
 # open a file to load the novel in
@@ -40,7 +37,7 @@ file = open(filename, mode = 'w')
 
 # write scraped text to file
 with open(filename, 'a', encoding='utf-8') as file:
-    for index, chap_url in enumerate(chap_urls[0:10]):
+    for index, chap_url in enumerate(chap_urls):
         title, chapter_content = scrape_chapter(chap_url)
         file.write(f"{title}\n\n{chapter_content}\n\n" + '-' * 40 + '\n\n')
 
